@@ -43,10 +43,12 @@ class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             task?.name = taskName
             task?.category = selectedCategory!
             task?.date = selectedDate
+            task?.dateToSort = dateFormatter.date(from: selectedDate)
 
             try! realm.write {
                 realm.add(task!)
             }
+            allTasks = allTasks.sorted(byKeyPath: "dateToSort")
         
             showAlert(isAdded: true, title: "Success".localized, message: "DataCorrect".localized)
         }else{
@@ -74,6 +76,7 @@ class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func setDateFormatter(){
+        dateFormatter.locale = Locale(identifier: "pl_PL")
         dateFormatter.dateStyle = DateFormatter.Style.medium
         dateFormatter.timeStyle = DateFormatter.Style.none
     }

@@ -15,5 +15,6 @@ class Task: Object {
     @objc dynamic var name: String?
     @objc dynamic var category: String?
     @objc dynamic var date: String?
+    @objc dynamic var dateToSort: Date?
 
 }
