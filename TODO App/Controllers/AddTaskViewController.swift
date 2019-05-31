@@ -34,10 +34,10 @@ class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     @IBAction func saveTask(_ sender: Any) {
         
-        if(selectedCategory == nil){
+        if selectedCategory == nil{
             selectedCategory = Category.allValues[0].rawValue
         }
-        
+
         if let taskName = taskNameField.text, taskName != "", let selectedDate = selectedDate{
             task = Task()
             task?.name = taskName
@@ -48,9 +48,9 @@ class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 realm.add(task!)
             }
         
-            showAlert(title: "Success".localized, message: "DataCorrect".localized)
+            showAlert(isAdded: true, title: "Success".localized, message: "DataCorrect".localized)
         }else{
-            showAlert(title: "DataIncorrect".localized, message: "DataIncorrectInfo".localized)
+            showAlert(isAdded: false, title: "DataIncorrect".localized, message: "DataIncorrectInfo".localized)
         }
     }
     
@@ -58,13 +58,13 @@ class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         self.dismiss(animated: true, completion: nil)
     }
     
-    func showAlert(title: String, message: String){
+    func showAlert(isAdded: Bool, title: String, message: String){
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle:UIAlertController.Style.alert)
         
         alertController.addAction(UIAlertAction(title: "OK".localized, style: UIAlertAction.Style.default)
         { action -> Void in
-            if(title == "Success".localized){
+            if(isAdded){
                 DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
                 }
