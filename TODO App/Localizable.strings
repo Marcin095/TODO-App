@@ -1,0 +1,13 @@
+"EmptyList" = "Pusta lista :(";
+"EmptyListInfo" = "Lista zadań jest pusta. Aby dodać zadania do listy naciśnij niebieski przycisk \"+\" w prawym dolnym rogu.";
+
+"Delete?" = "Usuń";
+"DeleteInfo" = "Czy na pewno chcesz usunąć wpis?";
+
+"OK" = "OK";
+"Cancel" = "Anuluj";
+"Success" = "Sukces";
+
+"DataCorrect" = "Dane zostały zapisane prawidłowo.";
+"DataIncorrect" = "Niepoprawne dane";
+"DataIncorrectInfo" = "Wprowadzone dane są niepoprawne lub nie zostały wprowadzone. Proszę uzupełnić wszystkie wartości.";

@@ -13,5 +13,4 @@ class TaskCell: UITableViewCell {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var taskName: UILabel!
     @IBOutlet weak var date: UILabel!
-    
 }

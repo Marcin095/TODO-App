@@ -13,13 +13,14 @@ let realm = try! Realm()
 var allTasks = realm.objects(Task.self)
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var myTableView: UITableView!
 
     
     override func viewDidAppear(_ animated: Bool) {
-        emptyListAlert()
+        myTableView.reloadData()
+        checkList()
     }
     
     override func viewDidLoad() {
@@ -66,32 +67,45 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    func emptyListAlert(){
-        
+    func checkList(){
         if(allTasks.isEmpty){
-            let alertController = UIAlertController(title: "Pusta lista :(", message: "Lista zadań jest pusta. Aby dodać zadania do listy naciśnij niebieski przycisk \"+\" w prawym dolnym rogu. ", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            
-            self.present(alertController, animated: true, completion: nil)
+            showEmptyListAlert()
         }
+    }
+    
+    
+    func showEmptyListAlert(){
+        
+        let alertController = UIAlertController(title: "EmptyList".localized, message: "EmptyListInfo".localized, preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "OK".localized, style: UIAlertAction.Style.default, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     
     func deleteTaskAlert(index: Int) {
         
-        let alertController = UIAlertController(title: "Usunąć?", message: "Czy na pewno chcesz usunąć wpis?", preferredStyle:UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: "Delete?".localized, message: "DeleteInfo".localized, preferredStyle:UIAlertController.Style.alert)
         
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+        alertController.addAction(UIAlertAction(title: "OK".localized, style: UIAlertAction.Style.default)
         { action -> Void in
-            try! realm.write {
-                realm.delete(allTasks[index])
-            }
-            self.myTableView.reloadData()
-            self.emptyListAlert()
+            self.deleteTask(index: index)
+            self.checkList()
         })
         
-        alertController.addAction(UIAlertAction(title: "Anuluj", style: UIAlertAction.Style.cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel".localized, style: UIAlertAction.Style.cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    
+    func deleteTask(index: Int){
+        try! realm.write {
+            realm.delete(allTasks[index])
+        }
+        self.myTableView.reloadData()
+    }
 }
+
+
+
 

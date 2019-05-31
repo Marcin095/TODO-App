@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Task List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="TODO_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="TaskListViewController" customModule="TODO_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,13 +38,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSI-rs-9QD">
-                                                    <rect key="frame" x="59" y="11" width="246" height="21"/>
+                                                    <rect key="frame" x="59" y="11" width="340" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Bk-sE-Gjz">
-                                                    <rect key="frame" x="59" y="40" width="246" height="21"/>
+                                                    <rect key="frame" x="59" y="40" width="340" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="3oJ-05-92F"/>
                                                     </constraints>
@@ -79,7 +79,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Put-h5-4bC"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSZ-Cd-Q6X">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSZ-Cd-Q6X" customClass="RoundButton" customModule="TODO_App" customModuleProvider="target">
                                 <rect key="frame" x="338" y="656" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -129,7 +129,7 @@
         <!--TaskViewController-->
         <scene sceneID="SP2-Ez-oPD">
             <objects>
-                <viewController storyboardIdentifier="TaskViewController" title="TaskViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RWI-to-6Xm" customClass="TaskViewController" customModule="TODO_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddTaskViewController" title="TaskViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RWI-to-6Xm" customClass="AddTaskViewController" customModule="TODO_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0E7-54-ToN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -146,7 +146,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <outlet property="delegate" destination="RWI-to-6Xm" id="Nfc-gA-nXF"/>
+                                            <outlet property="delegate" destination="RWI-to-6Xm" id="Li4-7W-i6q"/>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wybierz kategorię:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Asg-b3-ISb">
@@ -163,8 +163,8 @@
                                             <constraint firstAttribute="height" constant="129" id="lVz-Yr-1Bz"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="dataSource" destination="RWI-to-6Xm" id="FId-en-yBA"/>
-                                            <outlet property="delegate" destination="RWI-to-6Xm" id="AYn-Sb-maO"/>
+                                            <outlet property="dataSource" destination="RWI-to-6Xm" id="m6L-WU-swk"/>
+                                            <outlet property="delegate" destination="RWI-to-6Xm" id="Xc7-OX-fD1"/>
                                         </connections>
                                     </pickerView>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="TQk-VN-Zcn">
@@ -179,7 +179,7 @@
                                         </date>
                                         <locale key="locale" localeIdentifier="pl_PL"/>
                                         <connections>
-                                            <action selector="dataPickerValueChange:" destination="RWI-to-6Xm" eventType="valueChanged" id="D0m-p4-eE5"/>
+                                            <action selector="dataPickerValueChange:" destination="RWI-to-6Xm" eventType="valueChanged" id="wew-Ny-VwB"/>
                                         </connections>
                                     </datePicker>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wybierz datę:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSI-O1-mx8">
@@ -188,7 +188,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFp-ri-Ibs">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFp-ri-Ibs" customClass="RoundButton" customModule="TODO_App" customModuleProvider="target">
                                         <rect key="frame" x="304" y="513" width="80" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -209,10 +209,10 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="saveTask:" destination="RWI-to-6Xm" eventType="touchUpInside" id="tXS-5P-l42"/>
+                                            <action selector="saveTask:" destination="RWI-to-6Xm" eventType="touchUpInside" id="zO3-yZ-l9u"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1z-XW-GO8">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1z-XW-GO8" customClass="RoundButton" customModule="TODO_App" customModuleProvider="target">
                                         <rect key="frame" x="30" y="513" width="80" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -233,7 +233,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="UfC-qO-RNA"/>
+                                            <action selector="backToTaskList:" destination="RWI-to-6Xm" eventType="touchUpInside" id="BmS-Xl-7Ez"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -259,6 +259,9 @@
                                     <constraint firstItem="TQk-VN-Zcn" firstAttribute="top" secondItem="bSI-O1-mx8" secondAttribute="bottom" constant="8" id="yib-Nn-lE1"/>
                                     <constraint firstItem="Asg-b3-ISb" firstAttribute="leading" secondItem="CSs-NG-w4S" secondAttribute="leading" constant="30" id="zTr-BV-Fh8"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="RWI-to-6Xm" id="nft-FP-FlA"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -270,6 +273,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R4h-0l-aIq"/>
                     </view>
+                    <connections>
+                        <outlet property="categoryNamePicker" destination="pou-rh-Red" id="Jou-6O-FJb"/>
+                        <outlet property="taskNameField" destination="9aA-XY-0Iw" id="JMx-Vd-Az0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5pU-r8-KDr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

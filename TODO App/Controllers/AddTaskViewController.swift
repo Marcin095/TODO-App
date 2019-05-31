@@ -10,18 +10,16 @@ import UIKit
 import RealmSwift
 
 
-class TaskViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var taskNameField: UITextField!
     @IBOutlet weak var categoryNamePicker: UIPickerView!
     
-    let categories = ["Praca", "Zakupy", "Dom", "Inne"]
     var taskName: String?
     var selectedCategory: String?
     var selectedDate: String?
     var task: Task?
     let dateFormatter = DateFormatter()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,41 +29,45 @@ class TaskViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func dataPickerValueChange(_ sender: Any) {
         selectedDate = dateFormatter.string(from: (sender as AnyObject).date)
-        print(selectedDate!)
     }
     
     
     @IBAction func saveTask(_ sender: Any) {
         
-        if let taskName = taskName, taskName != "", let selectedCategory = selectedCategory, let selectedDate = selectedDate{            
+        if(selectedCategory == nil){
+            selectedCategory = Category.allValues[0].rawValue
+        }
+        
+        if let taskName = taskNameField.text, taskName != "", let selectedDate = selectedDate{
             task = Task()
             task?.name = taskName
-            task?.category = selectedCategory
+            task?.category = selectedCategory!
             task?.date = selectedDate
 
             try! realm.write {
                 realm.add(task!)
             }
-//            var allTasks = Array(results)
-//            allTasks.sort(by: {dateFormatter.date(from: $0.date!)! < dateFormatter.date(from: $1.date!)! })
-            
-            getAlert(title: "Sukces!", message: "Dane zostały zapisane prawidłowo.")
+        
+            showAlert(title: "Success".localized, message: "DataCorrect".localized)
         }else{
-            getAlert(title: "Niepoprawne dane", message: "Wprowadzone dane są niepoprawne lub nie zostały wprowadzone. Proszę uzupełnić wszystkie wartości.")
+            showAlert(title: "DataIncorrect".localized, message: "DataIncorrectInfo".localized)
         }
     }
     
+    @IBAction func backToTaskList(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
-    func getAlert(title: String, message: String){
+    func showAlert(title: String, message: String){
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle:UIAlertController.Style.alert)
         
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+        alertController.addAction(UIAlertAction(title: "OK".localized, style: UIAlertAction.Style.default)
         { action -> Void in
-            if(title == "Sukces!"){
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                self.present(viewController, animated: true, completion: nil)
+            if(title == "Success".localized){
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         })
         self.present(alertController, animated: true, completion: nil)
@@ -82,25 +84,19 @@ class TaskViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categories.count
+        return Category.allValues.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row]
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
+        return Category.allValues[row].rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedCategory = categories[row]
+        selectedCategory = Category.allValues[row].rawValue
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        if let taskName = textField.text{
-            self.taskName = taskName
-        }
     }
 }
