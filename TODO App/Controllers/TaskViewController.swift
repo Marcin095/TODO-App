@@ -10,7 +10,6 @@ import UIKit
 import RealmSwift
 
 
-
 class TaskViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var taskNameField: UITextField!
@@ -38,9 +37,7 @@ class TaskViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func saveTask(_ sender: Any) {
         
-        if let taskName = taskName, taskName != "", let selectedCategory = selectedCategory, let selectedDate = selectedDate{
-            print("SUKCES!!!")
-            
+        if let taskName = taskName, taskName != "", let selectedCategory = selectedCategory, let selectedDate = selectedDate{            
             task = Task()
             task?.name = taskName
             task?.category = selectedCategory

@@ -9,14 +9,13 @@
 import UIKit
 import RealmSwift
 
-var taskList = [Task]()
 let realm = try! Realm()
-var results = realm.objects(Task.self)
+var allTasks = realm.objects(Task.self)
+
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var myTableView: UITableView!
-
 
     
     override func viewDidAppear(_ animated: Bool) {
@@ -25,25 +24,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
         myTableView.delegate = self
         myTableView.dataSource = self
-
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
-//        return taskList.count
+        return allTasks.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: TaskCell? = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TaskCell
-        let currentTask = results[indexPath.row]
+        let currentTask = allTasks[indexPath.row]
         let category = currentTask.category
 
         cell?.taskName.text = currentTask.name
@@ -63,7 +57,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell?.icon.image = #imageLiteral(resourceName: "inne")
             cell?.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         }
-        
         return cell!
     }
     
@@ -75,7 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func emptyListAlert(){
         
-        if(results.isEmpty){
+        if(allTasks.isEmpty){
             let alertController = UIAlertController(title: "Pusta lista :(", message: "Lista zadań jest pusta. Aby dodać zadania do listy naciśnij niebieski przycisk \"+\" w prawym dolnym rogu. ", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             
@@ -91,10 +84,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
         { action -> Void in
             try! realm.write {
-                realm.delete(results[index])
+                realm.delete(allTasks[index])
             }
-            
-//            taskList.remove(at: index)
             self.myTableView.reloadData()
             self.emptyListAlert()
         })
