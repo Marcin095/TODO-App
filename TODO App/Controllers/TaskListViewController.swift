@@ -34,7 +34,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         return allTasks.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: TaskCell? = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TaskCell
@@ -42,7 +41,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         cell?.setValues(currentTask)
         return cell!
     }
-    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         deleteTaskAlert(tableView: tableView, indexPath: indexPath)
@@ -55,7 +53,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
     func showEmptyListAlert(){
         
         let alertController = UIAlertController(title: "EmptyList".localized, message: "EmptyListInfo".localized, preferredStyle: UIAlertController.Style.alert)
@@ -63,7 +60,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
     
     func deleteTaskAlert(tableView: UITableView, indexPath: IndexPath) {
 
