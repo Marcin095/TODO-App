@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 
-class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class AddTaskViewController: UIViewController {
     
     @IBOutlet weak var taskNameField: UITextField!
     @IBOutlet weak var categoryNamePicker: UIPickerView!
@@ -26,28 +26,6 @@ class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewDidLoad()
         setDateFormatter()
         selectedDate = dateFormatter.string(from: Date())
-    }
-    
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1;
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Category.allValues.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
-        return Category.allValues[row].rawValue
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedCategory = Category.allValues[row].rawValue
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
     
     
@@ -103,5 +81,30 @@ class AddTaskViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         dateFormatter.locale = Locale(identifier: "pl_PL")
         dateFormatter.dateStyle = DateFormatter.Style.medium
         dateFormatter.timeStyle = DateFormatter.Style.none
+    }
+}
+
+
+extension AddTaskViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
+   
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Category.allValues.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
+        return Category.allValues[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectedCategory = Category.allValues[row].rawValue
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

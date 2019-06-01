@@ -13,10 +13,10 @@ let realm = try! Realm()
 var allTasks = realm.objects(Task.self)
 
 
-class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskListViewController: UIViewController {
     
     @IBOutlet weak var taskTableView: UITableView!
-
+    
     
     override func viewDidAppear(_ animated: Bool) {
         taskTableView.reloadData()
@@ -25,25 +25,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        taskTableView.delegate = self
-        taskTableView.dataSource = self
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allTasks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell: TaskCell? = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TaskCell
-        let currentTask = allTasks[indexPath.row]
-        cell?.setValues(currentTask)
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        deleteTaskAlert(tableView: tableView, indexPath: indexPath)
     }
     
     
@@ -84,6 +65,25 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 }
 
+
+extension TaskListViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allTasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell: TaskCell? = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TaskCell
+        let currentTask = allTasks[indexPath.row]
+        cell?.setValues(currentTask)
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        deleteTaskAlert(tableView: tableView, indexPath: indexPath)
+    }
+}
 
 
 
